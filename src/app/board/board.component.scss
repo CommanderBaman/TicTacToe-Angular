@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 0;
+  margin: auto;
+}
+
+app-sign-container {
+  border: 1px gray solid;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+}
