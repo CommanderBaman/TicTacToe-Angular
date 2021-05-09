@@ -1,22 +1,137 @@
 /**
+ * Checks who the winner of the game is according to the current situation
+ * @param board any[] - contains the current board situation
+ * @returns string - which contains the winner name @default '' (no winner)
+ */
+export const calculateWinnerOfBoard = (board: any[]): string => {
+  let winner = ''
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
+
+  lines.forEach((line) => {
+    const [index1, index2, index3] = line
+    if (
+      board[index1] &&
+      board[index1] === board[index2] &&
+      board[index1] === board[index3]
+    ) {
+      winner = board[index1]
+    }
+  })
+  return winner
+}
+
+/**
+ * Puts an element on the board
+ * @param squares any[] - current board situation
+ * @param elementToPut string - element to put at the index
+ * @param indexToMove number - index at which to put the element
+ * @returns any[] - board after making the move
+ */
+const makeMove = (
+  squares: any[],
+  elementToPut: string,
+  indexToMove: number
+): any[] => {
+  return squares.map((element, index) => {
+    if (index === indexToMove) return elementToPut
+    return element
+  })
+}
+
+/**
+ * Heuristic function for the minimax algorithm
+ * @param squares any[] - Current board situation
+ * @param myElement string - element to support
+ * @returns number - score of the match (10 for winner, -10 for losing, otherwise 0)
+ */
+const evaluationFunction = (squares: any[], myElement: string): number => {
+  const winner = calculateWinnerOfBoard(squares)
+  if (winner === myElement) return 10
+  else if (!winner) return 0
+  return -10
+}
+
+/**
+ * Implementation of the minimax algorithm
+ * @param squares any[] - current board situation
+ * @param myElement string - element that you want to support
+ * @param depth number - depth of the current board
+ * @param isMaximizing boolean - want to minimize or maximize the element
+ * @returns
+ */
+const minimaxAlgorithm = (
+  squares: any[],
+  myElement: string,
+  depth: number,
+  isMaximizing: boolean
+): number => {
+  const currentState = evaluationFunction(squares, myElement)
+
+  // return the score if game is finished
+  if (currentState !== 0) return currentState - depth
+
+  // collecting which moves I can make
+  const moves = Array.from(squares, (_, index) => index).filter(
+    (index) => squares[index] === undefined
+  )
+  // if no moves left then tie
+  if (moves.length === 0) return 0
+
+  const oppositeElement = myElement === 'X' ? 'O' : 'X'
+
+  if (isMaximizing) {
+    let bestMoveValue = -1000
+    moves.forEach((move) => {
+      let newSquares = makeMove(squares, myElement, move)
+      let moveValue = minimaxAlgorithm(newSquares, myElement, depth + 1, false)
+      bestMoveValue = bestMoveValue > moveValue ? bestMoveValue : moveValue
+    })
+    return bestMoveValue
+  } else {
+    let bestMoveValue = 1000
+    moves.forEach((move) => {
+      let newSquares = makeMove(squares, oppositeElement, move)
+      let moveValue = minimaxAlgorithm(newSquares, myElement, depth + 1, true)
+      bestMoveValue = bestMoveValue < moveValue ? bestMoveValue : moveValue
+    })
+    return bestMoveValue
+  }
+
+  return 1
+}
+
+/**
  * Predicts the move to be made by AI after seeing the current board situation
  * @param squares any[] - current situation of the squares
  * @param myElement string - AI's element
  * @returns number - index that favours the AI
  */
 export const getAiMove = (squares: any[], myElement: string): number => {
-  const mySquares: number[] = [],
-    enemySquares: number[] = [],
-    emptySquares: number[] = []
-
-  squares.forEach((element, index) => {
-    if (element === myElement) mySquares.push(index)
-    else if (!element) emptySquares.push(index)
-    else enemySquares.push(index)
-  })
+  // collecting which moves AI can make
+  const moves = Array.from(squares, (_, index) => index).filter(
+    (index) => squares[index] === undefined
+  )
+  let bestMove = moves[0]
+  let bestMoveValue = -1000
 
   // selection process begins
-  const randomIndex = Math.floor(Math.random() * emptySquares.length)
+  moves.forEach((move) => {
+    let newSquares = makeMove(squares, myElement, move)
+    let moveValue = minimaxAlgorithm(newSquares, myElement, 0, false)
 
-  return emptySquares[randomIndex]
+    if (moveValue > bestMoveValue) {
+      bestMoveValue = moveValue
+      bestMove = move
+    }
+  })
+  return bestMove
 }

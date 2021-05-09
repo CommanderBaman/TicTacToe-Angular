@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { getAiMove } from './boardAI'
+import { getAiMove, calculateWinnerOfBoard } from './boardAI'
 
 @Component({
   selector: 'app-board',
@@ -12,18 +12,6 @@ export class BoardComponent implements OnInit {
   winner = '' // contains the winner when it comes
   playWithAI = false // contains whether the AI is playing or the computer is
   moves = 0 // contains the number of moves
-
-  // lines that cause a win in tic tac toe
-  lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ]
 
   constructor() {}
 
@@ -75,34 +63,14 @@ export class BoardComponent implements OnInit {
     if (!this.finished && !this.squares[clickedIndex]) {
       this.selectBox(clickedIndex)
 
-      this.winner = this.calculateWinner()
+      this.winner = calculateWinnerOfBoard(this.squares)
 
       // if fair play => computer should play if selected
       if (this.playWithAI && !this.finished) {
         this.selectBox(getAiMove(this.squares, this.player))
-        this.winner = this.calculateWinner()
+        this.winner = calculateWinnerOfBoard(this.squares)
       }
     }
-  }
-
-  /**
-   * Checks who the winner is according to the current situations
-   * @returns string - which contains the winner name @default '' (no winner)
-   */
-  calculateWinner(): string {
-    let winner = ''
-
-    this.lines.forEach((line) => {
-      const [index1, index2, index3] = line
-      if (
-        this.squares[index1] &&
-        this.squares[index1] === this.squares[index2] &&
-        this.squares[index1] === this.squares[index3]
-      ) {
-        winner = this.squares[index1]
-      }
-    })
-    return winner
   }
 
   /**
