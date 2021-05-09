@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1620584645669,
+  "index": "/TicTacToe-Angular/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/TicTacToe-Angular/favicon.ico",
+        "/TicTacToe-Angular/index.html",
+        "/TicTacToe-Angular/main.454f9682e96fb084379d.js",
+        "/TicTacToe-Angular/manifest.webmanifest",
+        "/TicTacToe-Angular/polyfills.00096ed7d93ed26ee6df.js",
+        "/TicTacToe-Angular/runtime.7b63b9fd40098a2e8207.js",
+        "/TicTacToe-Angular/styles.2234b3a590cbc0f5f6dd.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/TicTacToe-Angular/assets/icons/icon-128x128.png",
+        "/TicTacToe-Angular/assets/icons/icon-144x144.png",
+        "/TicTacToe-Angular/assets/icons/icon-152x152.png",
+        "/TicTacToe-Angular/assets/icons/icon-192x192.png",
+        "/TicTacToe-Angular/assets/icons/icon-384x384.png",
+        "/TicTacToe-Angular/assets/icons/icon-512x512.png",
+        "/TicTacToe-Angular/assets/icons/icon-72x72.png",
+        "/TicTacToe-Angular/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/TicTacToe-Angular/assets/icons/icon-128x128.png": "167cede982bc3d153e814ce4f2b95e55810a7594",
+    "/TicTacToe-Angular/assets/icons/icon-144x144.png": "dfa841343a34f1617c7c99bc78cc918086c912b2",
+    "/TicTacToe-Angular/assets/icons/icon-152x152.png": "90835adc40c58917f27639e672b2d2d939c0e7fb",
+    "/TicTacToe-Angular/assets/icons/icon-192x192.png": "8b637ec1e550d9447a08176a428885a167c491fa",
+    "/TicTacToe-Angular/assets/icons/icon-384x384.png": "78b132028f678f334464882c4cb67bb9c4a85505",
+    "/TicTacToe-Angular/assets/icons/icon-512x512.png": "a7d3834cf6ed0a9dce64caeaddec8848967752ec",
+    "/TicTacToe-Angular/assets/icons/icon-72x72.png": "e30e9aa68ff787cc9871903623694c4f001bcf49",
+    "/TicTacToe-Angular/assets/icons/icon-96x96.png": "ff8a1961c168110049c8c18d25ce828efecb4a7a",
+    "/TicTacToe-Angular/favicon.ico": "c67cccd755d5b8790db366d76b7de753a3ec16d1",
+    "/TicTacToe-Angular/index.html": "0f8575144203217226a5b849de7e4d6c48f4fc37",
+    "/TicTacToe-Angular/main.454f9682e96fb084379d.js": "a53b3ab5ea17064376ca438d90fcbbbdeb5f1cde",
+    "/TicTacToe-Angular/manifest.webmanifest": "3dc0bbcd860b44bae22c637a52e6850ff35400ac",
+    "/TicTacToe-Angular/polyfills.00096ed7d93ed26ee6df.js": "cfe7b0b53e96bff9ba384b4d497c08475a617d62",
+    "/TicTacToe-Angular/runtime.7b63b9fd40098a2e8207.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "/TicTacToe-Angular/styles.2234b3a590cbc0f5f6dd.css": "acbe00ff595d4af611c9b72795f5179d66e47589"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
