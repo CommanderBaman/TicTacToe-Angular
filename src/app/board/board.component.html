@@ -1,8 +1,8 @@
-
-<h2>Current Player: {{ player }}</h2>
-<button nbButton outline status="danger" (click)="newGame()">Start new Game!</button>
-
+<h2 *ngIf="!finished">Current Player: {{ player }}</h2>
 <h2 *ngIf="winner">Player {{ winner }} won the game!</h2>
+<button nbButton outline status="danger" (click)="newGame()">
+  Start new Game!
+</button>
 
 <main>
   <app-sign-container
