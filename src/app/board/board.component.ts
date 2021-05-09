@@ -10,6 +10,7 @@ export class BoardComponent implements OnInit {
   xIsNext = true
   winner = ''
   moves = 0
+  playWithComputer = false
 
   constructor() {}
 
@@ -69,5 +70,11 @@ export class BoardComponent implements OnInit {
       }
     })
     return winner
+  }
+
+  // for checkbox 
+  toggleComputerPlay(willPlayWithAI: boolean): void {
+    this.playWithComputer = willPlayWithAI
+    console.log(this.playWithComputer ? 'Will Play' : "Won't play")
   }
 }

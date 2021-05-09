@@ -2,6 +2,9 @@
   <h2 *ngIf="!finished">Current Player: {{ player }}</h2>
   <h2 *ngIf="finished && winner">Player {{ winner }} won the game!</h2>
   <h2 *ngIf="finished && !winner">It is a tie!!</h2>
+
+  <nb-checkbox status="success" (checkedChange)="toggleComputerPlay($event)">Play with Computer</nb-checkbox>
+
   <button
     nbButton
     outline
