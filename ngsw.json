@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1620584645669,
+  "timestamp": 1620588213841,
   "index": "/TicTacToe-Angular/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/TicTacToe-Angular/favicon.ico",
         "/TicTacToe-Angular/index.html",
-        "/TicTacToe-Angular/main.454f9682e96fb084379d.js",
+        "/TicTacToe-Angular/main.3f67e8f3b4136ae2f767.js",
         "/TicTacToe-Angular/manifest.webmanifest",
         "/TicTacToe-Angular/polyfills.00096ed7d93ed26ee6df.js",
         "/TicTacToe-Angular/runtime.7b63b9fd40098a2e8207.js",
@@ -52,8 +52,8 @@
     "/TicTacToe-Angular/assets/icons/icon-72x72.png": "e30e9aa68ff787cc9871903623694c4f001bcf49",
     "/TicTacToe-Angular/assets/icons/icon-96x96.png": "ff8a1961c168110049c8c18d25ce828efecb4a7a",
     "/TicTacToe-Angular/favicon.ico": "c67cccd755d5b8790db366d76b7de753a3ec16d1",
-    "/TicTacToe-Angular/index.html": "0f8575144203217226a5b849de7e4d6c48f4fc37",
-    "/TicTacToe-Angular/main.454f9682e96fb084379d.js": "a53b3ab5ea17064376ca438d90fcbbbdeb5f1cde",
+    "/TicTacToe-Angular/index.html": "ae277c900c04031ad093b67601e02e3b41e9f3f3",
+    "/TicTacToe-Angular/main.3f67e8f3b4136ae2f767.js": "ada36ff9860dc7b49d899ad02eba699bb3fd6202",
     "/TicTacToe-Angular/manifest.webmanifest": "3dc0bbcd860b44bae22c637a52e6850ff35400ac",
     "/TicTacToe-Angular/polyfills.00096ed7d93ed26ee6df.js": "cfe7b0b53e96bff9ba384b4d497c08475a617d62",
     "/TicTacToe-Angular/runtime.7b63b9fd40098a2e8207.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
