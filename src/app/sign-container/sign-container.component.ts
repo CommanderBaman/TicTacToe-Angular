@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core'
 })
 export class SignContainerComponent {
   @Input() sign: 'X' | 'O' | undefined
+  @Input()
+  finished!: false | true
 }

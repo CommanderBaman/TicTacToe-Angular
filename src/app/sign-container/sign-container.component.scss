@@ -7,3 +7,12 @@ button {
 button:focus {
   box-shadow: none !important;
 }
+
+.disabled {
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.normal {
+  opacity: 0.75;
+}

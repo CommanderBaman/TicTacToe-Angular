@@ -1,14 +1,24 @@
-<h2 *ngIf="!finished">Current Player: {{ player }}</h2>
-<h2 *ngIf="winner">Player {{ winner }} won the game!</h2>
-<button nbButton outline status="danger" (click)="newGame()">
-  Start new Game!
-</button>
-
-<main>
-  <app-sign-container
-    *ngFor="let square of squares; let indx = index"
-    [sign]="square"
-    (click)="makeMove(indx)"
+<div class="container">
+  <h2 *ngIf="!finished">Current Player: {{ player }}</h2>
+  <h2 *ngIf="finished && winner">Player {{ winner }} won the game!</h2>
+  <h2 *ngIf="finished && !winner">It is a tie!!</h2>
+  <button
+    nbButton
+    outline
+    status="danger"
+    (click)="newGame()"
+    class="start-button"
   >
-  </app-sign-container>
-</main>
+    Start new Game!
+  </button>
+
+  <main>
+    <app-sign-container
+      *ngFor="let square of squares; let indx = index"
+      [sign]="square"
+      (click)="makeMove(indx)"
+      [finished]="finished"
+    >
+    </app-sign-container>
+  </main>
+</div>
