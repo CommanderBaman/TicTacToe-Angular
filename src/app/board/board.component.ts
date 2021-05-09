@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { getAiMove } from './boardAI'
 
 @Component({
   selector: 'app-board',
@@ -6,11 +7,23 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  squares: any[] = Array(9).fill(undefined)
-  xIsNext = true
-  winner = ''
-  moves = 0
-  playWithComputer = false
+  squares: any[] = Array(9).fill(undefined) // represents the board squares
+  xIsNext = true // contains if x is next or not
+  winner = '' // contains the winner when it comes
+  playWithAI = false // contains whether the AI is playing or the computer is
+  moves = 0 // contains the number of moves
+
+  // lines that cause a win in tic tac toe
+  lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
 
   constructor() {}
 
@@ -18,6 +31,10 @@ export class BoardComponent implements OnInit {
     this.newGame()
   }
 
+  /**
+   * Resets the game to its default
+   * The option of playing against AI is preserved
+   */
   newGame(): void {
     this.squares = Array(9).fill(undefined)
     this.winner = ''
@@ -25,41 +42,57 @@ export class BoardComponent implements OnInit {
     this.moves = 0
   }
 
+  /**
+   * Gets which of the letter gets placed in the clicked box
+   */
   get player(): string {
     return this.finished ? '' : this.xIsNext ? 'X' : 'O'
   }
 
+  /**
+   * Gets if the game is finished or not
+   */
   get finished(): boolean {
     return this.winner !== '' || this.moves >= 9
   }
 
-  makeMove(clickedIndex: number): void {
-    if (!this.finished) {
-      if (!this.squares[clickedIndex]) {
-        this.squares.splice(clickedIndex, 1, this.player)
-        this.xIsNext = !this.xIsNext
-      }
-
-      this.winner = this.calculateWinner()
-    }
+  /**
+   * Selects the box whose index is present
+   * @param index number - which box to select
+   */
+  selectBox(index: number): void {
+    this.squares.splice(index, 1, this.player)
+    this.xIsNext = !this.xIsNext
     this.moves += 1
   }
 
-  calculateWinner(): string {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ]
+  /**
+   * Handles the user click along whether the AI moves or not
+   * @param clickedIndex number - index of the box that is clicked
+   */
+  makeMove(clickedIndex: number): void {
+    // check for fairness of move
+    if (!this.finished && !this.squares[clickedIndex]) {
+      this.selectBox(clickedIndex)
 
+      this.winner = this.calculateWinner()
+
+      // if fair play => computer should play if selected
+      if (this.playWithAI && !this.finished) {
+        this.selectBox(getAiMove(this.squares, this.player))
+        this.winner = this.calculateWinner()
+      }
+    }
+  }
+
+  /**
+   * Checks who the winner is according to the current situations
+   * @returns string - which contains the winner name @default '' (no winner)
+   */
+  calculateWinner(): string {
     let winner = ''
 
-    lines.forEach((line) => {
+    this.lines.forEach((line) => {
       const [index1, index2, index3] = line
       if (
         this.squares[index1] &&
@@ -72,9 +105,11 @@ export class BoardComponent implements OnInit {
     return winner
   }
 
-  // for checkbox 
+  /**
+   * Handles the checkbox input
+   * @param willPlayWithAI boolean - contains whether the checkbox was clicked or not
+   */
   toggleComputerPlay(willPlayWithAI: boolean): void {
-    this.playWithComputer = willPlayWithAI
-    console.log(this.playWithComputer ? 'Will Play' : "Won't play")
+    this.playWithAI = willPlayWithAI
   }
 }

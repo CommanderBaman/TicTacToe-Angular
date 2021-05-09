@@ -2,6 +2,7 @@ button {
   margin: auto;
   width: 100%;
   height: 100%;
+  font-size: min(10vw, 32px, 5vh);
 }
 
 button:focus {
@@ -15,4 +16,5 @@ button:focus {
 
 .normal {
   opacity: 0.75;
+  font-size: min(10vw, 32px, 5vh);
 }

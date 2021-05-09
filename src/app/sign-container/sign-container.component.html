@@ -1,3 +1,16 @@
-<button nbButton hero shape="round" [class]="finished ? 'disabled' : 'normal'" [status]="finished ? 'warning' : 'basic'" *ngIf="!sign">{{ sign }}</button>
-<button nbButton hero shape="round" status="success" *ngIf="sign == 'X'">{{ sign }}</button>
-<button nbButton hero shape="round" status="info" *ngIf="sign == 'O'">{{ sign }}</button>
+<button
+  nbButton
+  hero
+  shape="round"
+  [class]="finished ? 'disabled' : 'normal'"
+  [status]="finished ? 'warning' : 'basic'"
+  *ngIf="!sign"
+>
+  {{ sign }}
+</button>
+<button nbButton hero shape="round" status="success" *ngIf="sign == 'X'">
+  {{ sign }}
+</button>
+<button nbButton hero shape="round" status="info" *ngIf="sign == 'O'">
+  {{ sign }}
+</button>
