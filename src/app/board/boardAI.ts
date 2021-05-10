@@ -113,15 +113,18 @@ const minimaxAlgorithm = (
  * Predicts the move to be made by AI after seeing the current board situation
  * @param squares any[] - current situation of the squares
  * @param myElement string - AI's element
+ * @param returnSecondBest boolean - Return the second best option for easier play
  * @returns number - index that favours the AI
  */
-export const getAiMove = (squares: any[], myElement: string): number => {
+export const getAiMove = (squares: any[], myElement: string, returnSecondBest: boolean): number => {
   // collecting which moves AI can make
   const moves = Array.from(squares, (_, index) => index).filter(
     (index) => squares[index] === undefined
   )
   let bestMove = moves[0]
   let bestMoveValue = -1000
+  let secondBestMove = moves[0]
+  let secondBestMoveValue = -1000
 
   // selection process begins
   moves.forEach((move) => {
@@ -129,9 +132,15 @@ export const getAiMove = (squares: any[], myElement: string): number => {
     let moveValue = minimaxAlgorithm(newSquares, myElement, 0, false)
 
     if (moveValue > bestMoveValue) {
+      secondBestMoveValue = bestMoveValue
+      secondBestMove = bestMove
       bestMoveValue = moveValue
       bestMove = move
-    }
+    } 
+    else if (moveValue > secondBestMoveValue) {
+      secondBestMoveValue = moveValue
+      secondBestMove = move
+    } 
   })
-  return bestMove
+  return returnSecondBest ? secondBestMove : bestMove
 }

@@ -22,6 +22,10 @@
   font-size: min(10vw, 32px, 5vh);
 }
 
+.checkbox {
+  padding: 0.8vh;
+}
+
 main {
   display: grid;
   grid-template-columns:
