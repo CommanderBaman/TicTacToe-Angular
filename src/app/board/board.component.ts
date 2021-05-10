@@ -72,7 +72,7 @@ export class BoardComponent implements OnInit {
       // if fair play => computer should play if selected
       if (this.playWithAI && !this.finished) {
         this.selectBox(getAiMove(this.squares, this.player, this.easyAI))
-        if (this.makeAiEasy) this.easyAI = !this.easyAI
+        if (this.makeAiEasy) {this.easyAI = !this.easyAI}
         this.winner = calculateWinnerOfBoard(this.squares)
       }
     }

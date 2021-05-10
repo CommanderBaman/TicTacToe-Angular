@@ -1,7 +1,7 @@
 /**
  * Checks who the winner of the game is according to the current situation
  * @param board any[] - contains the current board situation
- * @returns string - which contains the winner name @default '' (no winner)
+ * @returns string - which contains the winner name
  */
 export const calculateWinnerOfBoard = (board: any[]): string => {
   let winner = ''
@@ -42,8 +42,7 @@ const makeMove = (
   indexToMove: number
 ): any[] => {
   return squares.map((element, index) => {
-    if (index === indexToMove) return elementToPut
-    return element
+    return index === indexToMove ? elementToPut : element
   })
 }
 
@@ -55,8 +54,11 @@ const makeMove = (
  */
 const evaluationFunction = (squares: any[], myElement: string): number => {
   const winner = calculateWinnerOfBoard(squares)
-  if (winner === myElement) return 10
-  else if (!winner) return 0
+  if (winner === myElement) {
+    return 10
+  } else if (!winner) {
+    return 0
+  }
   return -10
 }
 
@@ -66,7 +68,7 @@ const evaluationFunction = (squares: any[], myElement: string): number => {
  * @param myElement string - element that you want to support
  * @param depth number - depth of the current board
  * @param isMaximizing boolean - want to minimize or maximize the element
- * @returns
+ * @returns number - required output
  */
 const minimaxAlgorithm = (
   squares: any[],
@@ -77,30 +79,39 @@ const minimaxAlgorithm = (
   const currentState = evaluationFunction(squares, myElement)
 
   // return the score if game is finished
-  if (currentState !== 0) return currentState - depth
+  if (currentState !== 0) {
+    return currentState - depth
+  }
 
   // collecting which moves I can make
   const moves = Array.from(squares, (_, index) => index).filter(
     (index) => squares[index] === undefined
   )
   // if no moves left then tie
-  if (moves.length === 0) return 0
+  if (moves.length === 0) {
+    return 0
+  }
 
   const oppositeElement = myElement === 'X' ? 'O' : 'X'
 
   if (isMaximizing) {
     let bestMoveValue = -1000
     moves.forEach((move) => {
-      let newSquares = makeMove(squares, myElement, move)
-      let moveValue = minimaxAlgorithm(newSquares, myElement, depth + 1, false)
+      const newSquares = makeMove(squares, myElement, move)
+      const moveValue = minimaxAlgorithm(
+        newSquares,
+        myElement,
+        depth + 1,
+        false
+      )
       bestMoveValue = bestMoveValue > moveValue ? bestMoveValue : moveValue
     })
     return bestMoveValue
   } else {
     let bestMoveValue = 1000
     moves.forEach((move) => {
-      let newSquares = makeMove(squares, oppositeElement, move)
-      let moveValue = minimaxAlgorithm(newSquares, myElement, depth + 1, true)
+      const newSquares = makeMove(squares, oppositeElement, move)
+      const moveValue = minimaxAlgorithm(newSquares, myElement, depth + 1, true)
       bestMoveValue = bestMoveValue < moveValue ? bestMoveValue : moveValue
     })
     return bestMoveValue
@@ -116,7 +127,11 @@ const minimaxAlgorithm = (
  * @param returnSecondBest boolean - Return the second best option for easier play
  * @returns number - index that favours the AI
  */
-export const getAiMove = (squares: any[], myElement: string, returnSecondBest: boolean): number => {
+export const getAiMove = (
+  squares: any[],
+  myElement: string,
+  returnSecondBest: boolean
+): number => {
   // collecting which moves AI can make
   const moves = Array.from(squares, (_, index) => index).filter(
     (index) => squares[index] === undefined
@@ -128,19 +143,18 @@ export const getAiMove = (squares: any[], myElement: string, returnSecondBest: b
 
   // selection process begins
   moves.forEach((move) => {
-    let newSquares = makeMove(squares, myElement, move)
-    let moveValue = minimaxAlgorithm(newSquares, myElement, 0, false)
+    const newSquares = makeMove(squares, myElement, move)
+    const moveValue = minimaxAlgorithm(newSquares, myElement, 0, false)
 
     if (moveValue > bestMoveValue) {
       secondBestMoveValue = bestMoveValue
       secondBestMove = bestMove
       bestMoveValue = moveValue
       bestMove = move
-    } 
-    else if (moveValue > secondBestMoveValue) {
+    } else if (moveValue > secondBestMoveValue) {
       secondBestMoveValue = moveValue
       secondBestMove = move
-    } 
+    }
   })
   return returnSecondBest ? secondBestMove : bestMove
 }
