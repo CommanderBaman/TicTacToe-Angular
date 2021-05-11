@@ -14,6 +14,7 @@ export class BoardComponent implements OnInit {
   moves = 0 // contains the number of moves
   makeAiEasy = false // contains the user input of easiness
   easyAI = false // contains the difficulty level of AI
+  aiPlaysFirst = false // contains if the AI plays first or not
 
   constructor() {}
 
@@ -25,6 +26,7 @@ export class BoardComponent implements OnInit {
    * Resets the game to its default
    * The option of playing against AI is preserved
    * Easy AI option is also preserved
+   * AI playing first is also preserved
    */
   newGame(): void {
     this.squares = Array(9).fill(undefined)
@@ -32,6 +34,12 @@ export class BoardComponent implements OnInit {
     this.xIsNext = true
     this.moves = 0
     this.easyAI = false
+    if (this.playWithAI && this.aiPlaysFirst) {
+      this.selectBox(getAiMove(this.squares, this.player, this.easyAI))
+      if (this.makeAiEasy) {
+        this.easyAI = !this.easyAI
+      }
+    }
   }
 
   /**
@@ -72,7 +80,9 @@ export class BoardComponent implements OnInit {
       // if fair play => computer should play if selected
       if (this.playWithAI && !this.finished) {
         this.selectBox(getAiMove(this.squares, this.player, this.easyAI))
-        if (this.makeAiEasy) {this.easyAI = !this.easyAI}
+        if (this.makeAiEasy) {
+          this.easyAI = !this.easyAI
+        }
         this.winner = calculateWinnerOfBoard(this.squares)
       }
     }
@@ -80,7 +90,7 @@ export class BoardComponent implements OnInit {
 
   /**
    * Handles the checkbox input
-   * @param willPlayWithAI boolean - contains whether the checkbox was clicked or not
+   * @param willPlayWithAI boolean - contains whether the checkbox was checked or not
    */
   toggleComputerPlay(willPlayWithAI: boolean): void {
     this.playWithAI = willPlayWithAI
@@ -89,10 +99,25 @@ export class BoardComponent implements OnInit {
 
   /**
    * Handles the checkbox input for easy option
-   * @param makeAiEasy boolean - contains whether the checkbox was clicked or not
+   * @param makeAiEasy boolean - contains whether the checkbox was checked or not
    */
-   toggleComputerEasyPlay(makeAiEasy: boolean): void {
+  toggleComputerEasyPlay(makeAiEasy: boolean): void {
     this.makeAiEasy = makeAiEasy
     this.easyAI = false
+  }
+
+  /**
+   * Handles the checkbox input for the
+   * @param willAiPlayFirst boolean - contains whether the checkbox was checked or not
+   */
+  toggleAiFirstPlay(willAiPlayFirst: boolean): void {
+    this.aiPlaysFirst = willAiPlayFirst
+    this.easyAI = false
+    if (this.aiPlaysFirst && this.moves % 2 === 0) {
+      this.selectBox(getAiMove(this.squares, this.player, this.easyAI))
+      if (this.makeAiEasy) {
+        this.easyAI = !this.easyAI
+      }
+    }
   }
 }

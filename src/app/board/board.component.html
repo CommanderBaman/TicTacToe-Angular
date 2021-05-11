@@ -9,6 +9,9 @@
   <nb-checkbox class="checkbox" status="success" (checkedChange)="toggleComputerEasyPlay($event)" *ngIf="playWithAI"
     >Make AI Easy</nb-checkbox
   >
+  <nb-checkbox class="checkbox" status="success" (checkedChange)="toggleAiFirstPlay($event)" *ngIf="playWithAI"
+    >AI plays first</nb-checkbox
+  >
 
   <button
     nbButton
